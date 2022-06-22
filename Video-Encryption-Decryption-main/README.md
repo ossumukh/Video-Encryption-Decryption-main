@@ -55,6 +55,3 @@
 </p>
 
 ****
-
-### Name : 
-- Akash Ramanand Rajak
