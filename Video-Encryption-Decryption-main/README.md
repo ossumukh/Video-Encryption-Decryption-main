@@ -38,20 +38,4 @@
 - After that download the code file, and run video_encryption_decryption.py on local system.
 - Then the script will start running and user can explore selecting any video and encrypting and decrypting it and seeing the preview for the same.
 
-****
 
-### SCREENSHOTS :
-
-<p align="center">
-  <img width = 1000 src="Images/1.jpg" /><br>
-  <img width = 1000 src="Images/2.jpg" /><br>
-  <img width = 1000 src="Images/3.jpg" /><br>
-  <img width = 1000 src="Images/4.jpg" /><br>
-  <img width = 1000 src="Images/5.jpg" /><br>
-  <img width = 1000 src="Images/6.jpg" /><br>
-  <img width = 1000 src="Images/7.jpg" /><br>
-  <img width = 1000 src="Images/8.jpg" /><br>
-  <img width = 1000 src="Images/9.jpg" /><br>
-</p>
-
-****
