@@ -62,10 +62,14 @@ def open_file():
     # print(filename)
     path_text.delete("1.0", "end")
     path_text.insert(END, filename)
-
+global flag
+flag=0
 # function to encrypt video and show encrypted video
 def encrypt_fun():
+    
     global filename
+    global flag
+    flag=1
     path_list = []
     path="D:/6th sem/cns project and docs/Video-Encryption-Decryption-main/Video-Encryption-Decryption-main"
     # converting videos to images --------------------------------
@@ -155,83 +159,93 @@ def encrypt_fun():
 
 # function to decrypt video and show decrypted video
 def decrypt_fun():
-    global filename
-    source = cv2.VideoCapture(filename)
-    ##
-    source1 = cv2.VideoCapture("D:/6th sem/cns project and docs/video.mp4")
-    currentframe = 0
-    x2=0
-    while (True):
-        # reading from frame
-        ret, frame = source1.read()
-        # print(currentframe)
-        if ret:
-            if currentframe % 60 == 0:
-                # if video is still left continue creating images
-                x1 = int(currentframe / 60)
-                name ="D:/6th sem/cns project and docs/Video-Encryption-Decryption-main/Video-Encryption-Decryption-main/Images/sample.jpg"
-                # name = path +'/Video_Images/frame' + str(x1) + '.jpg'
-                # print(x1, end = " ")
-                x2 = x2 + 1
-                #         print ('Creating...' + name)
-                # writing the extracted images
-                cv2.imwrite(name, frame)
+    global flag
+    if flag==1:
+        global filename
+        source = cv2.VideoCapture(filename)
+        ##
+        source1 = cv2.VideoCapture("D:/6th sem/cns project and docs/video.mp4")
+        currentframe = 0
+        x2=0
+        while (True):
+            # reading from frame
+            ret, frame = source1.read()
+            # print(currentframe)
+            if ret:
+                if currentframe % 60 == 0:
+                    # if video is still left continue creating images
+                    x1 = int(currentframe / 60)
+                    name ="D:/6th sem/cns project and docs/Video-Encryption-Decryption-main/Video-Encryption-Decryption-main/Images/sample.jpg"
+                    # name = path +'/Video_Images/frame' + str(x1) + '.jpg'
+                    # print(x1, end = " ")
+                    x2 = x2 + 1
+                    #         print ('Creating...' + name)
+                    # writing the extracted images
+                    cv2.imwrite(name, frame)
 
-                # ------------- convert to encrypted image -----------------
-                # name_of = './Video Images/frame' + str(x1) + '.jpg'
-                image_input = imread(name, cv2.IMREAD_GRAYSCALE)
-                (x3, y, z) = image_input.shape
-                # for i in image_input.shape:
-                #     print(i)
-                image_input = image_input.astype(float) / 255.0
-                # print(image_input)
+                    # ------------- convert to encrypted image -----------------
+                    # name_of = './Video Images/frame' + str(x1) + '.jpg'
+                    image_input = imread(name, cv2.IMREAD_GRAYSCALE)
+                    (x3, y, z) = image_input.shape
+                    # for i in image_input.shape:
+                    #     print(i)
+                    image_input = image_input.astype(float) / 255.0
+                    # print(image_input)
 
-                mu, sigma = 0, 0.1  # mean and standard deviation
-                key = np.random.normal(mu, sigma, (x3, y,z)) + np.finfo(float).eps
-                # print(key)
-                image_encrypted = image_input / key
-                # name1 = path+ '/Video_Images/frame' + str(x1) + '.jpg'
-                # path_list.append(name1)
-                # print(x1)
-                # cv2.imwrite(name1, image_encrypted / 255)
-                # ----------------------------------------------------------
+                    mu, sigma = 0, 0.1  # mean and standard deviation
+                    key = np.random.normal(mu, sigma, (x3, y,z)) + np.finfo(float).eps
+                    # print(key)
+                    image_encrypted = image_input / key
+                    # name1 = path+ '/Video_Images/frame' + str(x1) + '.jpg'
+                    # path_list.append(name1)
+                    # print(x1)
+                    # cv2.imwrite(name1, image_encrypted / 255)
+                    # ----------------------------------------------------------
 
-            # increasing counter so that it will
-            # show how many frames are created
-            currentframe += 1
-        else:
-            break
-    ##
-    # running the loop
-    # print(source)
-    while True:
-        # extracting the frames
-        ret, img = source.read()
-        # converting to gray-scale
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        # displaying the video
-        cv2.imshow("Decrypted Video", gray)
-        # exiting the loop
-        key = cv2.waitKey(1)
-        if key == ord("q"):
-            break
+                # increasing counter so that it will
+                # show how many frames are created
+                currentframe += 1
+            else:
+                break
+        ##
+        # running the loop
+        # print(source)
+        while True:
+            # extracting the frames
+            ret, img = source.read()
+            # converting to gray-scale
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            # displaying the video
+            cv2.imshow("Decrypted Video", gray)
+            # exiting the loop
+            key = cv2.waitKey(1)
+            if key == ord("q"):
+                break
+            
+    else:
+        mbox.showwarning("Warning","Video not encrypted")
+        print("Video not encrypted")
 
 # function to reset the video to original video and show preview of that
 def reset_fun():
-    global filename
+    global flag
+    if flag==1:
+        global filename
 
-    source3 = cv2.VideoCapture(filename)
-    # running the loop
-    while True:
-        # extracting the frames
-        ret3, img3 = source3.read()
-        # displaying the video
-        cv2.imshow("Original Video", img3)
-        # exiting the loop
-        key = cv2.waitKey(1)
-        if key == ord("q"):
-            break
-
+        source3 = cv2.VideoCapture(filename)
+        # running the loop
+        while True:
+            # extracting the frames
+            ret3, img3 = source3.read()
+            # displaying the video
+            cv2.imshow("Original Video", img3)
+            # exiting the loop
+            key = cv2.waitKey(1)
+            if key == ord("q"):
+                break
+    else:
+        mbox.showwarning("Warning","Video not encrypted")
+        print("Video not encrypted")
 
 
 # top label
